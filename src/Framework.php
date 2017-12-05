@@ -26,6 +26,6 @@ class Framework implements FrameworkInterface
 
     public function path(string $relativePath): string
     {
-        return $this->rootPath . $relativePath;
+        return $this->rootPath . DIRECTORY_SEPARATOR . $relativePath;
     }
 }
