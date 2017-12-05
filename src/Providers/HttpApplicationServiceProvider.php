@@ -10,7 +10,7 @@ use N1215\Tsukuyomi\FrameworkInterface;
 use N1215\Tsukuyomi\HttpApplication;
 use N1215\Tsukuyomi\HttpApplicationInterface;
 use N1215\Tsukuyomi\RoutingHandlerInterface;
-use Psr\EventManager\EventManagerInterface;
+use N1215\Tsukuyomi\Event\EventManagerInterface;
 use Zend\Diactoros\Response\SapiEmitter;
 
 class HttpApplicationServiceProvider
