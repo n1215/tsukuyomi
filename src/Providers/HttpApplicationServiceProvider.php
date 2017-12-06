@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace N1215\Tsukuyomi\Providers;
 
 use Illuminate\Container\Container;
+use N1215\Http\Router\RoutingHandlerInterface;
 use N1215\Jugoya\RequestHandlerFactoryInterface;
 use N1215\Tsukuyomi\BootLoaderInterface;
 use N1215\Tsukuyomi\FrameworkInterface;
 use N1215\Tsukuyomi\HttpApplication;
 use N1215\Tsukuyomi\HttpApplicationInterface;
-use N1215\Tsukuyomi\RoutingHandlerInterface;
 use N1215\Tsukuyomi\Event\EventManagerInterface;
 use Zend\Diactoros\Response\SapiEmitter;
 

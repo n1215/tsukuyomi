@@ -6,8 +6,8 @@ namespace N1215\Tsukuyomi\Providers;
 use Illuminate\Container\Container;
 use N1215\Http\Router\RouterInterface;
 use N1215\Http\Router\RoutingErrorResponderInterface;
-use N1215\Tsukuyomi\RoutingHandler;
-use N1215\Tsukuyomi\RoutingHandlerInterface;
+use N1215\Http\Router\RoutingHandler;
+use N1215\Http\Router\RoutingHandlerInterface;
 
 class RoutingHandlerServiceProvider
 {
