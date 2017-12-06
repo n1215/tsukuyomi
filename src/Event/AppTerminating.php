@@ -8,6 +8,8 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class AppTerminating extends Event
 {
+    const NAME = 'app.terminating';
+
     /**
      * コンストラクタ
      * @param ServerRequestInterface $request
@@ -15,6 +17,6 @@ class AppTerminating extends Event
      */
     public function __construct(ServerRequestInterface $request, ResponseInterface $response)
     {
-        parent::__construct('app.terminating', null, ['request' => $request, 'response' => $response]);
+        parent::__construct(self::NAME, null, ['request' => $request, 'response' => $response]);
     }
 }
