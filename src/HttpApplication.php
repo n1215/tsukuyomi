@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace N1215\Tsukuyomi;
 
 use Interop\Http\Server\RequestHandlerInterface;
+use N1215\Tsukuyomi\Event\AppTerminating;
 use N1215\Tsukuyomi\Event\EventManagerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\EmitterInterface;
@@ -39,7 +40,7 @@ class HttpApplication implements HttpApplicationInterface
         $this->bootLoader->boot();
         $response = $this->requestHandler->handle($request);
         $this->responseEmitter->emit($response);
-        $this->eventManager->trigger('app.terminate', null, [$request, $response]);
+        $this->eventManager->trigger(new AppTerminating($request, $response));
         return;
     }
 }
