@@ -11,6 +11,15 @@ class EventManagerServiceProvider
 {
     public function register(Container $container)
     {
-        $container->singleton(EventManagerInterface::class, EventManager::class);
+        $container->singleton(EventManagerInterface::class, function (Container $container) {
+            $eventManager = new EventManager();
+            $this->registerEvents($eventManager);
+            return $eventManager;
+        });
+    }
+
+    protected function registerEvents(EventManagerInterface $eventManager)
+    {
+        //
     }
 }
