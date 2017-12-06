@@ -19,7 +19,8 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "n1215/hakudo": "dev-master",
+        "n1215/jugoya": "dev-master",
+        "n1215/http-router": "dev-master",
         "illuminate/container": "^5.5"
     },
     "autoload": {
