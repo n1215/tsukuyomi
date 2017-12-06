@@ -20,7 +20,7 @@ class EventManager implements EventManagerInterface
     /**
      * @inheritDoc
      */
-    public function attach(string $event, callable $callback, int $priority = 0)
+    public function attach(string $event, callable $callback, int $priority = 0): bool
     {
         if (!isset($this->listenerMapping[$event])) {
             $this->listenerMapping[$event] = [];
@@ -30,22 +30,14 @@ class EventManager implements EventManagerInterface
             'priority' => $priority,
             'callback' => $callback
         ];
+
+        return true;
     }
 
     /**
      * @inheritDoc
      */
-    public function clearListeners(string $event)
-    {
-        if (isset($this->listenerMapping[$event])) {
-            unset($this->listenerMapping[$event]);
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function detach(string $event, callable $callback)
+    public function detach(string $event, callable $callback): bool
     {
         foreach ($this->listenerMapping as $event => $listeners) {
             foreach ($listeners as $index => $listener) {
@@ -54,6 +46,18 @@ class EventManager implements EventManagerInterface
                 }
             }
             $this->listenerMapping[$event] = array_values($listeners);
+        }
+
+        return true;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function clearListeners(string $event): void
+    {
+        if (isset($this->listenerMapping[$event])) {
+            unset($this->listenerMapping[$event]);
         }
     }
 

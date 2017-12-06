@@ -4,9 +4,8 @@ declare(strict_types=1);
 namespace N1215\Tsukuyomi;
 
 use Illuminate\Container\Container;
-use Psr\Container\ContainerInterface;
 
-class ContainerBuilder implements ContainerBuilderInterface
+class ContainerBuilder
 {
     /** @var string[]  */
     private $providerClasses;
@@ -19,7 +18,7 @@ class ContainerBuilder implements ContainerBuilderInterface
         $this->providerClasses = $providerClasses;
     }
 
-    public function build(): ContainerInterface
+    public function build(): Container
     {
         $container = new Container();
         foreach ($this->providerClasses as $providerClass) {

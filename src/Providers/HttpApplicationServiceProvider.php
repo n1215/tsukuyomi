@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace N1215\Tsukuyomi\Providers;
 
 use Illuminate\Container\Container;
+use N1215\Http\Router\RouterInterface;
+use N1215\Http\Router\RoutingErrorResponderInterface;
+use N1215\Http\Router\RoutingHandler;
 use N1215\Http\Router\RoutingHandlerInterface;
 use N1215\Jugoya\RequestHandlerFactoryInterface;
 use N1215\Tsukuyomi\BootLoaderInterface;
@@ -17,6 +20,13 @@ class HttpApplicationServiceProvider
 {
     public function register(Container $container)
     {
+        $container->singleton(RoutingHandlerInterface::class, function (Container $container) {
+            return new RoutingHandler(
+                $container->get(RouterInterface::class),
+                $container->get(RoutingErrorResponderInterface::class)
+            );
+        });
+
         $container->singleton(HttpApplicationInterface::class, function (Container $container) {
             $handlerFactory = $container->get(RequestHandlerFactoryInterface::class);
             $framework = $container->get(FrameworkInterface::class);
@@ -32,5 +42,4 @@ class HttpApplicationServiceProvider
             );
         });
     }
-
 }
