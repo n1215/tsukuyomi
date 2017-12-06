@@ -20,20 +20,8 @@ class EventManager implements EventManagerInterface
     /**
      * @inheritDoc
      */
-    public function attach($event, $callback, $priority = 0)
+    public function attach(string $event, callable $callback, int $priority = 0)
     {
-        if (!is_string($event)) {
-            throw new \InvalidArgumentException('$event must be a string.');
-        }
-
-        if (!is_callable($callback)) {
-            throw new \InvalidArgumentException('$callback must be a callable.');
-        }
-
-        if (!is_int($priority)) {
-            throw new \InvalidArgumentException('$priority must be an integer.');
-        }
-
         if (!isset($this->listenerMapping[$event])) {
             $this->listenerMapping[$event] = [];
         }
@@ -47,12 +35,8 @@ class EventManager implements EventManagerInterface
     /**
      * @inheritDoc
      */
-    public function clearListeners($event)
+    public function clearListeners(string $event)
     {
-        if (!is_string($event)) {
-            throw new \InvalidArgumentException('$event must be a string.');
-        }
-
         if (isset($this->listenerMapping[$event])) {
             unset($this->listenerMapping[$event]);
         }
@@ -61,16 +45,8 @@ class EventManager implements EventManagerInterface
     /**
      * @inheritDoc
      */
-    public function detach($event, $callback)
+    public function detach(string $event, callable $callback)
     {
-        if (!is_string($event)) {
-            throw new \InvalidArgumentException('$event must be a string.');
-        }
-
-        if (!is_callable($callback)) {
-            throw new \InvalidArgumentException('$callback must be a callable.');
-        }
-
         foreach ($this->listenerMapping as $event => $listeners) {
             foreach ($listeners as $index => $listener) {
                 if ($listeners['callback'] === $callback) {
@@ -84,20 +60,28 @@ class EventManager implements EventManagerInterface
     /**
      * @inheritDoc
      */
-    public function trigger($event, $target = null, $argv = array())
+    public function trigger($event, $target = null, array $argv = [])
     {
-        if (!$event instanceof EventInterface && !is_string($event)) {
-            throw new \InvalidArgumentException('$event must be a string or an instance of EventInterface.');
-        }
-
         if (is_string($event)) {
             $event = new Event($event, $target, $argv);
         }
 
+        $listeners = $this->getListenersForEvent($event);
+
+        foreach ($listeners as $listener) {
+            call_user_func($listener['callback'], $event);
+            if ($event->isPropagationStopped()) {
+                return;
+            }
+        }
+    }
+
+    private function getListenersForEvent(EventInterface $event): array
+    {
         $eventName = $event->getName();
 
         if (!isset($this->listenerMapping[$eventName])) {
-            return;
+            return [];
         }
 
         $listeners = $this->listenerMapping[$eventName];
@@ -109,11 +93,6 @@ class EventManager implements EventManagerInterface
             return $a['priority'] < $b['priority'] ? -1 : 1;
         });
 
-        foreach ($listeners as $listener) {
-            call_user_func($listener['callback'], $event);
-            if ($event->isPropagationStopped()) {
-                return;
-            }
-        }
+        return $listeners;
     }
 }
