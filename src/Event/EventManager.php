@@ -41,7 +41,7 @@ class EventManager implements EventManagerInterface
     {
         foreach ($this->listenerMapping as $event => $listeners) {
             foreach ($listeners as $index => $listener) {
-                if ($listeners['callback'] === $callback) {
+                if ($listener['callback'] === $callback) {
                     unset($listeners[$index]);
                 }
             }
