@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class EventManagerTest extends TestCase
 {
-    public function test_trigger_calls_attached_listener()
+    public function test_trigger_can_call_attached_listener()
     {
         $eventManager = new EventManager();
         $eventName = 'dummy.event';
@@ -19,6 +19,21 @@ class EventManagerTest extends TestCase
 
         $result = $eventManager->attach($eventName, $callback);
         $eventManager->trigger($event);
+
+        $this->assertTrue($result);
+    }
+
+    public function test_trigger_can_call_attached_listener_by_event_name()
+    {
+        $eventManager = new EventManager();
+        $eventName = 'dummy.event';
+        $callback = function (EventInterface $callbackEvent) use ($eventName) {
+            $this->assertEquals($eventName, $callbackEvent->getName());
+            return;
+        };
+
+        $result = $eventManager->attach($eventName, $callback);
+        $eventManager->trigger($eventName);
 
         $this->assertTrue($result);
     }
@@ -127,6 +142,7 @@ class EventManagerTest extends TestCase
             ['id' => 2, 'priority' => 1],
             ['id' => 3, 'priority' => 3],
             ['id' => 4, 'priority' => 2],
+            ['id' => 5, 'priority' => 2],
         ];
 
         $eventName = 'dummy.event';
@@ -142,7 +158,7 @@ class EventManagerTest extends TestCase
 
         $eventManager->trigger(new Event($eventName));
 
-        $this->assertEquals([2, 4, 3, 1], $results);
+        $this->assertEquals([2, 4, 5, 3, 1], $results);
     }
 
     public function test_trigger_can_stop_event_propagation()
