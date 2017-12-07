@@ -8,7 +8,7 @@ use N1215\Http\Router\RouterInterface;
 use N1215\Http\Router\RoutingErrorResponderInterface;
 use N1215\Http\Router\RoutingHandler;
 use N1215\Http\Router\RoutingHandlerInterface;
-use N1215\Jugoya\RequestHandlerFactoryInterface;
+use N1215\Jugoya\RequestHandlerBuilderInterface;
 use N1215\Tsukuyomi\BootLoaderInterface;
 use N1215\Tsukuyomi\FrameworkInterface;
 use N1215\Tsukuyomi\HttpApplication;
@@ -28,11 +28,13 @@ class HttpApplicationServiceProvider
         });
 
         $container->singleton(HttpApplicationInterface::class, function (Container $container) {
-            $handlerFactory = $container->get(RequestHandlerFactoryInterface::class);
+            /** @var RequestHandlerBuilderInterface $handlerBuilder */
+            $handlerBuilder = $container->get(RequestHandlerBuilderInterface::class);
+            /** @var FrameworkInterface $framework */
             $framework = $container->get(FrameworkInterface::class);
             $middlewareConfigPath = $framework->path('config/middlewares.php');
             $middlewareClasses = require $middlewareConfigPath;
-            $requestHandler = $handlerFactory->create(RoutingHandlerInterface::class, $middlewareClasses);
+            $requestHandler = $handlerBuilder->build(RoutingHandlerInterface::class, $middlewareClasses);
 
             return new HttpApplication(
                 $container->get(BootLoaderInterface::class),
