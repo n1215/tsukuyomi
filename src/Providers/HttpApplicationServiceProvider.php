@@ -20,13 +20,22 @@ class HttpApplicationServiceProvider
 {
     public function register(Container $container)
     {
+        $this->registerRoutingHandler($container);
+        $this->registerHttpApplication($container);
+    }
+
+    private function registerRoutingHandler(Container $container)
+    {
         $container->singleton(RoutingHandlerInterface::class, function (Container $container) {
             return new RoutingHandler(
                 $container->get(RouterInterface::class),
                 $container->get(RoutingErrorResponderInterface::class)
             );
         });
+    }
 
+    private function registerHttpApplication(Container $container)
+    {
         $container->singleton(HttpApplicationInterface::class, function (Container $container) {
             /** @var RequestHandlerBuilderInterface $handlerBuilder */
             $handlerBuilder = $container->get(RequestHandlerBuilderInterface::class);
