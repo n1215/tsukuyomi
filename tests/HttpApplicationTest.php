@@ -16,10 +16,9 @@ class HttpApplicationTest extends TestCase
     public function test_run()
     {
         /** @var BootLoaderInterface|MockObject $bootLoader */
-        $bootLoader = $this->getMockBuilder(BootLoaderInterface::class)
-            ->setMethods(['boot'])
-            ->getMock();
-        $bootLoader->expects($this->once())
+        $bootLoader = $this->createMock(BootLoaderInterface::class);
+        $bootLoader
+            ->expects($this->once())
             ->method('boot');
 
 
@@ -27,26 +26,22 @@ class HttpApplicationTest extends TestCase
         $response = new Response();
 
         /** @var RequestHandlerInterface|MockObject $requestHandler */
-        $requestHandler = $this->getMockBuilder(RequestHandlerInterface::class)
-            ->setMethods(['handle'])
-            ->getMock();
-        $requestHandler->expects($this->once())
+        $requestHandler = $this->createMock(RequestHandlerInterface::class);
+        $requestHandler
+            ->expects($this->once())
             ->method('handle')
             ->with($request)
             ->willReturn($response);
 
         /** @var Response\EmitterInterface|MockObject $responseEmitter */
-        $responseEmitter = $this->getMockBuilder(Response\EmitterInterface::class)
-            ->setMethods(['emit'])
-            ->getMock();
-        $responseEmitter->expects($this->once())
+        $responseEmitter = $this->createMock(Response\EmitterInterface::class);
+        $responseEmitter
+            ->expects($this->once())
             ->method('emit')
             ->with($response);
 
         /** @var EventManagerInterface|MockObject $eventManager */
-        $eventManager = $this->getMockBuilder(EventManagerInterface::class)
-            ->setMethods(['trigger', 'attach', 'detach', 'clearListeners'])
-            ->getMock();
+        $eventManager = $this->createMock(EventManagerInterface::class);
         $eventManager->expects($this->once())
             ->method('trigger')
             ->with($this->callback(function (AppTerminating $event) use ($request, $response) {

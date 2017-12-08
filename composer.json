@@ -20,8 +20,7 @@
     "require": {
         "php": ">=7.1.0",
         "n1215/jugoya": "^0.7",
-        "n1215/http-router": "^0.5",
-        "illuminate/container": "^5.5"
+        "n1215/http-router": "^0.5"
     },
     "autoload": {
         "psr-4": {
