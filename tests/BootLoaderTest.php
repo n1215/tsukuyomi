@@ -22,20 +22,39 @@ class BootLoaderTest extends TestCase
 
         $this->assertEquals($bootstrapperClasses, self::$result);
     }
+
+
+    public function test_constructor_throws_exception_when_non_bootstrapper_class_given()
+    {
+        $bootstrapperClasses = [
+            NonBootstrapper::class,
+        ];
+        $this->expectException(\InvalidArgumentException::class);
+
+        new BootLoader($bootstrapperClasses);
+    }
 }
 
-class HogeBootstrapper
+class HogeBootstrapper implements BootstrapperInterface
 {
-    public function bootstrap()
+    public function bootstrap(): void
     {
         BootLoaderTest::$result[] = self::class;
     }
 }
 
-class FugaBootstrapper
+class FugaBootstrapper implements BootstrapperInterface
 {
-    public function bootstrap()
+    public function bootstrap(): void
     {
         BootLoaderTest::$result[] = self::class;
+    }
+}
+
+
+class NonBootstrapper
+{
+    public function bootstrap(): void
+    {
     }
 }
