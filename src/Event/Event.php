@@ -33,7 +33,7 @@ class Event implements EventInterface
     /**
      * @inheritdoc
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -49,7 +49,7 @@ class Event implements EventInterface
     /**
      * @inheritdoc
      */
-    public function getParams()
+    public function getParams(): array
     {
         return $this->params;
     }
@@ -57,7 +57,7 @@ class Event implements EventInterface
     /**
      * @inheritdoc
      */
-    public function getParam($name)
+    public function getParam(string $name)
     {
         if (!isset($this->params[$name])) {
             return null;
@@ -69,7 +69,7 @@ class Event implements EventInterface
     /**
      * @inheritdoc
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         if (!is_string($name)) {
             throw new \InvalidArgumentException('$name must be a string.');
@@ -97,7 +97,7 @@ class Event implements EventInterface
     /**
      * @inheritdoc
      */
-    public function stopPropagation($flag)
+    public function stopPropagation(bool $flag)
     {
         if (!is_bool($flag)) {
             throw new \InvalidArgumentException('$flag must be a bool.');
@@ -109,7 +109,7 @@ class Event implements EventInterface
     /**
      * @inheritdoc
      */
-    public function isPropagationStopped()
+    public function isPropagationStopped(): bool
     {
         return $this->isPropagationStopped;
     }

@@ -76,9 +76,9 @@ class EventTest extends TestCase
     /**
      * @inheritdoc
      */
-    public function test_setName_throws_exception_when_object_given()
+    public function test_setName_throws_type_error_when_object_given()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\TypeError::class);
         $this->event->setName(new \stdClass());
     }
 
@@ -118,9 +118,9 @@ class EventTest extends TestCase
     /**
      * @inheritdoc
      */
-    public function test_stopPropagation_throws_exception_when_int_given()
+    public function test_stopPropagation_throws_type_error_when_int_given()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\TypeError::class);
         $this->event->stopPropagation(1);
     }
 

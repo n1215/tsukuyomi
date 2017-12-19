@@ -13,7 +13,7 @@ interface EventInterface
      *
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 
     /**
      * Get target/context from which event was triggered
@@ -27,7 +27,7 @@ interface EventInterface
      *
      * @return array
      */
-    public function getParams();
+    public function getParams(): array;
 
     /**
      * Get a single parameter by name
@@ -35,7 +35,7 @@ interface EventInterface
      * @param  string $name
      * @return mixed
      */
-    public function getParam($name);
+    public function getParam(string $name);
 
     /**
      * Set the event name
@@ -43,7 +43,7 @@ interface EventInterface
      * @param  string $name
      * @return void
      */
-    public function setName($name);
+    public function setName(string $name);
 
     /**
      * Set the event target
@@ -66,12 +66,12 @@ interface EventInterface
      *
      * @param  bool $flag
      */
-    public function stopPropagation($flag);
+    public function stopPropagation(bool $flag);
 
     /**
      * Has this event indicated event propagation should stop?
      *
      * @return bool
      */
-    public function isPropagationStopped();
+    public function isPropagationStopped(): bool;
 }
