@@ -71,10 +71,6 @@ class Event implements EventInterface
      */
     public function setName(string $name)
     {
-        if (!is_string($name)) {
-            throw new \InvalidArgumentException('$name must be a string.');
-        }
-
         $this->name = $name;
     }
 
@@ -99,10 +95,6 @@ class Event implements EventInterface
      */
     public function stopPropagation(bool $flag)
     {
-        if (!is_bool($flag)) {
-            throw new \InvalidArgumentException('$flag must be a bool.');
-        }
-
         $this->isPropagationStopped = $flag;
     }
 
