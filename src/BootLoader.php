@@ -22,7 +22,7 @@ class BootLoader implements BootLoaderInterface
     private function addBootstrapper(string $bootstrapperClass)
     {
         $bootstrapper = new $bootstrapperClass();
-        if (!is_subclass_of($bootstrapperClass, BootstrapperInterface::class)) {
+        if (!$bootstrapper instanceof BootstrapperInterface) {
             throw new \InvalidArgumentException('bootstrapper must implement' . BootstrapperInterface::class . '.');
         }
 
