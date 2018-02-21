@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace N1215\Tsukuyomi;
 
-use Interop\Http\Server\RequestHandlerInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use N1215\Tsukuyomi\Event\AppTerminating;
 use N1215\Tsukuyomi\Event\EventManagerInterface;
 use Psr\Http\Message\ServerRequestInterface;

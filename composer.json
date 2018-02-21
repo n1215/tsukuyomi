@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "http-interop/http-server-handler": "^1.0",
+        "psr/http-server-handler": "^1.0",
         "psr/container": "^1.0"
     },
     "autoload": {
