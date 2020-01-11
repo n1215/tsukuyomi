@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace N1215\Tsukuyomi\Event;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequest;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequest;
 
 class AppTerminatingTest extends TestCase
 {

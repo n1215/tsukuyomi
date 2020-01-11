@@ -7,7 +7,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use N1215\Tsukuyomi\Event\AppTerminating;
 use N1215\Tsukuyomi\Event\EventManagerInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\EmitterInterface;
+use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
 
 class HttpApplication implements HttpApplicationInterface
 {

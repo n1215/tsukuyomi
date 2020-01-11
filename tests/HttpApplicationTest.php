@@ -3,13 +3,14 @@ declare(strict_types=1);
 
 namespace N1215\Tsukuyomi;
 
+use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use N1215\Tsukuyomi\Event\AppTerminating;
 use N1215\Tsukuyomi\Event\EventManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Zend\Diactoros\Response;
-use Zend\Diactoros\ServerRequest;
+use Laminas\Diactoros\Response;
+use Laminas\Diactoros\ServerRequest;
 
 class HttpApplicationTest extends TestCase
 {
@@ -33,8 +34,8 @@ class HttpApplicationTest extends TestCase
             ->with($request)
             ->willReturn($response);
 
-        /** @var Response\EmitterInterface|MockObject $responseEmitter */
-        $responseEmitter = $this->createMock(Response\EmitterInterface::class);
+        /** @var EmitterInterface|MockObject $responseEmitter */
+        $responseEmitter = $this->createMock(EmitterInterface::class);
         $responseEmitter
             ->expects($this->once())
             ->method('emit')
